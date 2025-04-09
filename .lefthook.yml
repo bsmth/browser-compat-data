@@ -20,8 +20,8 @@ post-merge:
   only:
     - ref: main
   commands:
-    yarn-install:
-      run: yarn install
+    npm-install:
+      run: npm install
 
 output:
   - summary
