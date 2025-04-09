@@ -1,0 +1,28 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: Prettier
+      glob: "*"
+      run: prettier --ignore-unknown --write --cache {staged_files}
+      stage_fixed: true
+
+    - name: Eslint
+      glob: "*.{js,jsx,tsx}"
+      run: eslint --fix --cache {staged_files}
+      stage_fixed: true
+
+    - name: JSON
+      glob: "/!(browsers)/**/*.json"
+      run: npm run lint:fix
+      stage_fixed: true
+
+post-merge:
+  only:
+    - ref: main
+  commands:
+    yarn-install:
+      run: yarn install
+
+output:
+  - summary
+  - failure
